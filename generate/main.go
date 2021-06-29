@@ -78,6 +78,14 @@ func Make{{.CapitalizedName}}(value {{.ReferenceName}}) {{.CapitalizedName}} {
        return {{.CapitalizedName}}{value, true}
 }
 
+func ({{.ShortenName}} *{{.CapitalizedName}}) Set(value {{.ReferenceName}}) {
+	*{{.ShortenName}} = Make{{.CapitalizedName}}(value)
+}
+
+func ({{.ShortenName}} *{{.CapitalizedName}}) Clear() {
+	*{{.ShortenName}} = {{.CapitalizedName}}{}
+}
+
 func ({{.ShortenName}} {{.CapitalizedName}}) Value() {{.ReferenceName}} { return {{.ShortenName}}.value }
 func ({{.ShortenName}} {{.CapitalizedName}}) HasValue() bool { return {{.ShortenName}}.hasValue }
 {{- end}}

@@ -15,6 +15,14 @@ func MakeBool(value bool) Bool {
 	return Bool{value, true}
 }
 
+func (b *Bool) Set(value bool) {
+	*b = MakeBool(value)
+}
+
+func (b *Bool) Clear() {
+	*b = Bool{}
+}
+
 func (b Bool) Value() bool    { return b.value }
 func (b Bool) HasValue() bool { return b.hasValue }
 
@@ -25,6 +33,14 @@ type Byte struct {
 
 func MakeByte(value byte) Byte {
 	return Byte{value, true}
+}
+
+func (b *Byte) Set(value byte) {
+	*b = MakeByte(value)
+}
+
+func (b *Byte) Clear() {
+	*b = Byte{}
 }
 
 func (b Byte) Value() byte    { return b.value }
@@ -39,6 +55,14 @@ func MakeInt(value int) Int {
 	return Int{value, true}
 }
 
+func (i *Int) Set(value int) {
+	*i = MakeInt(value)
+}
+
+func (i *Int) Clear() {
+	*i = Int{}
+}
+
 func (i Int) Value() int     { return i.value }
 func (i Int) HasValue() bool { return i.hasValue }
 
@@ -49,6 +73,14 @@ type Uint struct {
 
 func MakeUint(value uint) Uint {
 	return Uint{value, true}
+}
+
+func (u *Uint) Set(value uint) {
+	*u = MakeUint(value)
+}
+
+func (u *Uint) Clear() {
+	*u = Uint{}
 }
 
 func (u Uint) Value() uint    { return u.value }
@@ -63,6 +95,14 @@ func MakeInt8(value int8) Int8 {
 	return Int8{value, true}
 }
 
+func (i *Int8) Set(value int8) {
+	*i = MakeInt8(value)
+}
+
+func (i *Int8) Clear() {
+	*i = Int8{}
+}
+
 func (i Int8) Value() int8    { return i.value }
 func (i Int8) HasValue() bool { return i.hasValue }
 
@@ -73,6 +113,14 @@ type Uint8 struct {
 
 func MakeUint8(value uint8) Uint8 {
 	return Uint8{value, true}
+}
+
+func (u *Uint8) Set(value uint8) {
+	*u = MakeUint8(value)
+}
+
+func (u *Uint8) Clear() {
+	*u = Uint8{}
 }
 
 func (u Uint8) Value() uint8   { return u.value }
@@ -87,6 +135,14 @@ func MakeInt16(value int16) Int16 {
 	return Int16{value, true}
 }
 
+func (i *Int16) Set(value int16) {
+	*i = MakeInt16(value)
+}
+
+func (i *Int16) Clear() {
+	*i = Int16{}
+}
+
 func (i Int16) Value() int16   { return i.value }
 func (i Int16) HasValue() bool { return i.hasValue }
 
@@ -97,6 +153,14 @@ type Uint16 struct {
 
 func MakeUint16(value uint16) Uint16 {
 	return Uint16{value, true}
+}
+
+func (u *Uint16) Set(value uint16) {
+	*u = MakeUint16(value)
+}
+
+func (u *Uint16) Clear() {
+	*u = Uint16{}
 }
 
 func (u Uint16) Value() uint16  { return u.value }
@@ -111,6 +175,14 @@ func MakeInt32(value int32) Int32 {
 	return Int32{value, true}
 }
 
+func (i *Int32) Set(value int32) {
+	*i = MakeInt32(value)
+}
+
+func (i *Int32) Clear() {
+	*i = Int32{}
+}
+
 func (i Int32) Value() int32   { return i.value }
 func (i Int32) HasValue() bool { return i.hasValue }
 
@@ -121,6 +193,14 @@ type Uint32 struct {
 
 func MakeUint32(value uint32) Uint32 {
 	return Uint32{value, true}
+}
+
+func (u *Uint32) Set(value uint32) {
+	*u = MakeUint32(value)
+}
+
+func (u *Uint32) Clear() {
+	*u = Uint32{}
 }
 
 func (u Uint32) Value() uint32  { return u.value }
@@ -135,6 +215,14 @@ func MakeInt64(value int64) Int64 {
 	return Int64{value, true}
 }
 
+func (i *Int64) Set(value int64) {
+	*i = MakeInt64(value)
+}
+
+func (i *Int64) Clear() {
+	*i = Int64{}
+}
+
 func (i Int64) Value() int64   { return i.value }
 func (i Int64) HasValue() bool { return i.hasValue }
 
@@ -145,6 +233,14 @@ type Uint64 struct {
 
 func MakeUint64(value uint64) Uint64 {
 	return Uint64{value, true}
+}
+
+func (u *Uint64) Set(value uint64) {
+	*u = MakeUint64(value)
+}
+
+func (u *Uint64) Clear() {
+	*u = Uint64{}
 }
 
 func (u Uint64) Value() uint64  { return u.value }
@@ -159,6 +255,14 @@ func MakeUintptr(value uintptr) Uintptr {
 	return Uintptr{value, true}
 }
 
+func (u *Uintptr) Set(value uintptr) {
+	*u = MakeUintptr(value)
+}
+
+func (u *Uintptr) Clear() {
+	*u = Uintptr{}
+}
+
 func (u Uintptr) Value() uintptr { return u.value }
 func (u Uintptr) HasValue() bool { return u.hasValue }
 
@@ -169,6 +273,14 @@ type Float32 struct {
 
 func MakeFloat32(value float32) Float32 {
 	return Float32{value, true}
+}
+
+func (f *Float32) Set(value float32) {
+	*f = MakeFloat32(value)
+}
+
+func (f *Float32) Clear() {
+	*f = Float32{}
 }
 
 func (f Float32) Value() float32 { return f.value }
@@ -183,6 +295,14 @@ func MakeFloat64(value float64) Float64 {
 	return Float64{value, true}
 }
 
+func (f *Float64) Set(value float64) {
+	*f = MakeFloat64(value)
+}
+
+func (f *Float64) Clear() {
+	*f = Float64{}
+}
+
 func (f Float64) Value() float64 { return f.value }
 func (f Float64) HasValue() bool { return f.hasValue }
 
@@ -193,6 +313,14 @@ type Complex64 struct {
 
 func MakeComplex64(value complex64) Complex64 {
 	return Complex64{value, true}
+}
+
+func (c *Complex64) Set(value complex64) {
+	*c = MakeComplex64(value)
+}
+
+func (c *Complex64) Clear() {
+	*c = Complex64{}
 }
 
 func (c Complex64) Value() complex64 { return c.value }
@@ -207,6 +335,14 @@ func MakeComplex128(value complex128) Complex128 {
 	return Complex128{value, true}
 }
 
+func (c *Complex128) Set(value complex128) {
+	*c = MakeComplex128(value)
+}
+
+func (c *Complex128) Clear() {
+	*c = Complex128{}
+}
+
 func (c Complex128) Value() complex128 { return c.value }
 func (c Complex128) HasValue() bool    { return c.hasValue }
 
@@ -217,6 +353,14 @@ type Rune struct {
 
 func MakeRune(value rune) Rune {
 	return Rune{value, true}
+}
+
+func (r *Rune) Set(value rune) {
+	*r = MakeRune(value)
+}
+
+func (r *Rune) Clear() {
+	*r = Rune{}
 }
 
 func (r Rune) Value() rune    { return r.value }
@@ -231,6 +375,14 @@ func MakeString(value string) String {
 	return String{value, true}
 }
 
+func (s *String) Set(value string) {
+	*s = MakeString(value)
+}
+
+func (s *String) Clear() {
+	*s = String{}
+}
+
 func (s String) Value() string  { return s.value }
 func (s String) HasValue() bool { return s.hasValue }
 
@@ -241,6 +393,14 @@ type Duration struct {
 
 func MakeDuration(value time.Duration) Duration {
 	return Duration{value, true}
+}
+
+func (d *Duration) Set(value time.Duration) {
+	*d = MakeDuration(value)
+}
+
+func (d *Duration) Clear() {
+	*d = Duration{}
 }
 
 func (d Duration) Value() time.Duration { return d.value }
