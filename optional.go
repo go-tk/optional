@@ -2,6 +2,10 @@
 
 package optional
 
+import (
+	"time"
+)
+
 type Bool struct {
 	value    bool
 	hasValue bool
@@ -229,3 +233,15 @@ func MakeString(value string) String {
 
 func (s String) Value() string  { return s.value }
 func (s String) HasValue() bool { return s.hasValue }
+
+type Duration struct {
+	value    time.Duration
+	hasValue bool
+}
+
+func MakeDuration(value time.Duration) Duration {
+	return Duration{value, true}
+}
+
+func (d Duration) Value() time.Duration { return d.value }
+func (d Duration) HasValue() bool       { return d.hasValue }

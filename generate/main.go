@@ -7,7 +7,6 @@ import (
 	"go/format"
 	"io/ioutil"
 	"path/filepath"
-	"strings"
 	"text/template"
 )
 
@@ -29,60 +28,61 @@ func main() {
 }
 
 func generateCode() []byte {
-	typeInfos := makeTypeInfos()
+	typeInfos := []struct {
+		PackagePath     string
+		ReferenceName   string
+		CapitalizedName string
+		ShortenName     string
+	}{
+		{"", "bool", "Bool", "b"},
+		{"", "byte", "Byte", "b"},
+		{"", "int", "Int", "i"},
+		{"", "uint", "Uint", "u"},
+		{"", "int8", "Int8", "i"},
+		{"", "uint8", "Uint8", "u"},
+		{"", "int16", "Int16", "i"},
+		{"", "uint16", "Uint16", "u"},
+		{"", "int32", "Int32", "i"},
+		{"", "uint32", "Uint32", "u"},
+		{"", "int64", "Int64", "i"},
+		{"", "uint64", "Uint64", "u"},
+		{"", "uintptr", "Uintptr", "u"},
+		{"", "float32", "Float32", "f"},
+		{"", "float64", "Float64", "f"},
+		{"", "complex64", "Complex64", "c"},
+		{"", "complex128", "Complex128", "c"},
+		{"", "rune", "Rune", "r"},
+		{"", "string", "String", "s"},
+		{"time", "time.Duration", "Duration", "d"},
+	}
 	var buffer bytes.Buffer
 	if err := template.Must(template.New("").Parse(`// Code generated. DO NOT EDIT.
 
 package `+packageName+`
- {{- range .}}
 
- type {{.CapitalizedName}} struct {
-	value {{.Name}}
-	hasValue bool
- }
+import (
+{{- range .}}
+	{{- if .PackagePath}}
+	"{{.PackagePath}}"
+	{{- end}}
+{{- end}}
+)
+{{- range .}}
 
- func Make{{.CapitalizedName}}(value {{.Name}}) {{.CapitalizedName}} {
-	return {{.CapitalizedName}}{value, true}
- }
+type {{.CapitalizedName}} struct {
+       value {{.ReferenceName}}
+       hasValue bool
+}
 
- func ({{.ShortenName}} {{.CapitalizedName}}) Value() {{.Name}} { return {{.ShortenName}}.value }
- func ({{.ShortenName}} {{.CapitalizedName}}) HasValue() bool { return {{.ShortenName}}.hasValue }
- {{- end}}
- `)).Execute(&buffer, typeInfos); err != nil {
+func Make{{.CapitalizedName}}(value {{.ReferenceName}}) {{.CapitalizedName}} {
+       return {{.CapitalizedName}}{value, true}
+}
+
+func ({{.ShortenName}} {{.CapitalizedName}}) Value() {{.ReferenceName}} { return {{.ShortenName}}.value }
+func ({{.ShortenName}} {{.CapitalizedName}}) HasValue() bool { return {{.ShortenName}}.hasValue }
+{{- end}}
+`)).Execute(&buffer, typeInfos); err != nil {
 		panic(err)
 	}
 	return buffer.Bytes()
-}
-
-type typeInfo struct {
-	Name            string
-	CapitalizedName string
-	ShortenName     string
-}
-
-func makeTypeInfos() []typeInfo {
-	typeNames := []string{
-		"bool",
-		"byte",
-		"int", "uint",
-		"int8", "uint8",
-		"int16", "uint16",
-		"int32", "uint32",
-		"int64", "uint64",
-		"uintptr",
-		"float32",
-		"float64",
-		"complex64",
-		"complex128",
-		"rune",
-		"string",
-	}
-	typeInfos := make([]typeInfo, len(typeNames))
-	for i, typeName := range typeNames {
-		typeInfo := &typeInfos[i]
-		typeInfo.Name = typeName
-		typeInfo.CapitalizedName = strings.ToUpper(typeName[:1]) + typeName[1:]
-		typeInfo.ShortenName = typeName[:1]
-	}
-	return typeInfos
 }
