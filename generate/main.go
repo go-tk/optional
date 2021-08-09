@@ -40,15 +40,16 @@ var typeInfos = []struct {
 }
 
 func main() {
-	filePath2Code := map[string][]byte{
-		filepath.Join("..", packageName+".go"): generateCode(),
-		filepath.Join("..", "json.go"):         generateCodeForJSON(),
+	fileName2Code := map[string][]byte{
+		packageName + ".go": generateCode(),
+		"json.go":           generateCodeForJSON(),
 	}
-	for filePath, code := range filePath2Code {
+	for fileName, code := range fileName2Code {
 		code2, err := format.Source(code)
 		if err == nil {
 			code = code2
 		}
+		filePath := filepath.Join("..", fileName)
 		if err2 := ioutil.WriteFile(filePath, code, 0644); err2 != nil {
 			panic(err2)
 		}
