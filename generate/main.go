@@ -77,24 +77,32 @@ import (
 )
 {{- range .}}
 
+// {{.CapitalizedName}} represents an optional {{.FullName}} value.
 type {{.CapitalizedName}} struct {
        value {{.FullName}}
        hasValue bool
 }
 
+// Make{{.CapitalizedName}} makes a new optional {{.FullName}} value with the given value.
 func Make{{.CapitalizedName}}(value {{.FullName}}) {{.CapitalizedName}} {
        return {{.CapitalizedName}}{value, true}
 }
 
+// Set sets the {{.FullName}} value.
 func ({{.ShortenName}} *{{.CapitalizedName}}) Set(value {{.FullName}}) {
 	*{{.ShortenName}} = Make{{.CapitalizedName}}(value)
 }
 
+// Clear clears the {{.FullName}} value.
 func ({{.ShortenName}} *{{.CapitalizedName}}) Clear() {
 	*{{.ShortenName}} = {{.CapitalizedName}}{}
 }
 
+// Value returns the {{.FullName}} value.
 func ({{.ShortenName}} {{.CapitalizedName}}) Value() {{.FullName}} { return {{.ShortenName}}.value }
+
+
+// HasValue returns a boolean value indicating whether the {{.FullName}} value is set.
 func ({{.ShortenName}} {{.CapitalizedName}}) HasValue() bool { return {{.ShortenName}}.hasValue }
 {{- end}}
 `)).Execute(&buffer, typeInfos); err != nil {
@@ -212,6 +220,7 @@ import (
 {{- if and (ne .FullName "complex64") (ne .FullName "complex128")}}
 {{- if eq .FullName "time.Duration"}}
 
+// MarshalJSON implements json.Marshaler.
 func ({{.ShortenName}} {{.CapitalizedName}}) MarshalJSON() ([]byte, error) {
 	if !{{.ShortenName}}.hasValue {
 		return []byte("null"), nil
@@ -220,6 +229,7 @@ func ({{.ShortenName}} {{.CapitalizedName}}) MarshalJSON() ([]byte, error) {
 	return json.Marshal(valueStr)
 }
 
+// UnmarshalJSON implements json.Unmarshaler.
 func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		{{.ShortenName}}.Clear()
@@ -238,6 +248,7 @@ func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalJSON(data []byte) error {
 }
 {{- else}}
 
+// MarshalJSON implements json.Marshaler.
 func ({{.ShortenName}} {{.CapitalizedName}}) MarshalJSON() ([]byte, error) {
 	if !{{.ShortenName}}.hasValue {
 		return []byte("null"), nil
@@ -245,6 +256,7 @@ func ({{.ShortenName}} {{.CapitalizedName}}) MarshalJSON() ([]byte, error) {
 	return json.Marshal({{.ShortenName}}.value)
 }
 
+// UnmarshalJSON implements json.Unmarshaler.
 func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
 		{{.ShortenName}}.Clear()
@@ -350,6 +362,7 @@ import (
 {{- if and (ne .FullName "complex64") (ne .FullName "complex128")}}
 {{- if eq .FullName "time.Duration"}}
 
+// MarshalYAML implements yaml.Marshaler.
 func ({{.ShortenName}} {{.CapitalizedName}}) MarshalYAML() (interface{}, error) {
 	if !{{.ShortenName}}.hasValue {
 		return nil, nil
@@ -358,6 +371,7 @@ func ({{.ShortenName}} {{.CapitalizedName}}) MarshalYAML() (interface{}, error) 
 	return valueStr, nil
 }
 
+// UnmarshalYAML implements yaml.Unmarshaler.
 func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var valueStr *string
 	if err := unmarshal(&valueStr); err != nil {
@@ -376,6 +390,7 @@ func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalYAML(unmarshal func(inter
 }
 {{- else}}
 
+// MarshalYAML implements yaml.Marshaler.
 func ({{.ShortenName}} {{.CapitalizedName}}) MarshalYAML() (interface{}, error) {
 	if !{{.ShortenName}}.hasValue {
 		return nil, nil
@@ -383,6 +398,7 @@ func ({{.ShortenName}} {{.CapitalizedName}}) MarshalYAML() (interface{}, error) 
 	return {{.ShortenName}}.value, nil
 }
 
+// UnmarshalYAML implements yaml.Unmarshaler.
 func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var value *{{.FullName}}
 	if err := unmarshal(&value); err != nil {
