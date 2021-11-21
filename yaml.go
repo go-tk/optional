@@ -17,15 +17,11 @@ func (b Bool) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (b *Bool) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *bool
+	var value bool
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		b.Clear()
-		return nil
-	}
-	b.Set(*value)
+	b.Set(value)
 	return nil
 }
 
@@ -39,15 +35,11 @@ func (b Byte) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (b *Byte) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *byte
+	var value byte
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		b.Clear()
-		return nil
-	}
-	b.Set(*value)
+	b.Set(value)
 	return nil
 }
 
@@ -61,15 +53,11 @@ func (i Int) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (i *Int) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *int
+	var value int
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		i.Clear()
-		return nil
-	}
-	i.Set(*value)
+	i.Set(value)
 	return nil
 }
 
@@ -83,15 +71,11 @@ func (u Uint) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (u *Uint) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *uint
+	var value uint
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		u.Clear()
-		return nil
-	}
-	u.Set(*value)
+	u.Set(value)
 	return nil
 }
 
@@ -105,15 +89,11 @@ func (i Int8) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (i *Int8) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *int8
+	var value int8
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		i.Clear()
-		return nil
-	}
-	i.Set(*value)
+	i.Set(value)
 	return nil
 }
 
@@ -127,15 +107,11 @@ func (u Uint8) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (u *Uint8) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *uint8
+	var value uint8
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		u.Clear()
-		return nil
-	}
-	u.Set(*value)
+	u.Set(value)
 	return nil
 }
 
@@ -149,15 +125,11 @@ func (i Int16) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (i *Int16) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *int16
+	var value int16
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		i.Clear()
-		return nil
-	}
-	i.Set(*value)
+	i.Set(value)
 	return nil
 }
 
@@ -171,15 +143,11 @@ func (u Uint16) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (u *Uint16) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *uint16
+	var value uint16
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		u.Clear()
-		return nil
-	}
-	u.Set(*value)
+	u.Set(value)
 	return nil
 }
 
@@ -193,15 +161,11 @@ func (i Int32) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (i *Int32) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *int32
+	var value int32
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		i.Clear()
-		return nil
-	}
-	i.Set(*value)
+	i.Set(value)
 	return nil
 }
 
@@ -215,15 +179,11 @@ func (u Uint32) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (u *Uint32) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *uint32
+	var value uint32
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		u.Clear()
-		return nil
-	}
-	u.Set(*value)
+	u.Set(value)
 	return nil
 }
 
@@ -237,15 +197,11 @@ func (i Int64) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (i *Int64) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *int64
+	var value int64
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		i.Clear()
-		return nil
-	}
-	i.Set(*value)
+	i.Set(value)
 	return nil
 }
 
@@ -259,15 +215,11 @@ func (u Uint64) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (u *Uint64) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *uint64
+	var value uint64
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		u.Clear()
-		return nil
-	}
-	u.Set(*value)
+	u.Set(value)
 	return nil
 }
 
@@ -281,15 +233,11 @@ func (u Uintptr) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (u *Uintptr) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *uintptr
+	var value uintptr
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		u.Clear()
-		return nil
-	}
-	u.Set(*value)
+	u.Set(value)
 	return nil
 }
 
@@ -303,15 +251,11 @@ func (f Float32) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (f *Float32) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *float32
+	var value float32
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		f.Clear()
-		return nil
-	}
-	f.Set(*value)
+	f.Set(value)
 	return nil
 }
 
@@ -325,15 +269,11 @@ func (f Float64) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (f *Float64) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *float64
+	var value float64
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		f.Clear()
-		return nil
-	}
-	f.Set(*value)
+	f.Set(value)
 	return nil
 }
 
@@ -347,15 +287,11 @@ func (r Rune) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (r *Rune) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *rune
+	var value rune
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		r.Clear()
-		return nil
-	}
-	r.Set(*value)
+	r.Set(value)
 	return nil
 }
 
@@ -369,15 +305,11 @@ func (s String) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (s *String) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *string
+	var value string
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		s.Clear()
-		return nil
-	}
-	s.Set(*value)
+	s.Set(value)
 	return nil
 }
 
@@ -392,17 +324,13 @@ func (d Duration) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func (d *Duration) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var valueStr *string
+	var valueStr string
 	if err := unmarshal(&valueStr); err != nil {
 		return err
 	}
-	if valueStr == nil {
-		d.Clear()
-		return nil
-	}
-	value, err := time.ParseDuration(*valueStr)
+	value, err := time.ParseDuration(valueStr)
 	if err != nil {
-		return fmt.Errorf("duration parse failed; valueStr=%q: %v", *valueStr, err)
+		return fmt.Errorf("duration parse failed; valueStr=%q: %v", valueStr, err)
 	}
 	d.Set(value)
 	return nil

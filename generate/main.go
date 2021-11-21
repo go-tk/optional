@@ -373,17 +373,13 @@ func ({{.ShortenName}} {{.CapitalizedName}}) MarshalYAML() (interface{}, error) 
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var valueStr *string
+	var valueStr string
 	if err := unmarshal(&valueStr); err != nil {
 		return err
 	}
-	if valueStr == nil {
-		{{.ShortenName}}.Clear()
-		return nil
-	}
-	value, err := time.ParseDuration(*valueStr)
+	value, err := time.ParseDuration(valueStr)
 	if err != nil {
-		return fmt.Errorf("duration parse failed; valueStr=%q: %v", *valueStr, err)
+		return fmt.Errorf("duration parse failed; valueStr=%q: %v", valueStr, err)
 	}
 	{{.ShortenName}}.Set(value)
 	return nil
@@ -400,15 +396,11 @@ func ({{.ShortenName}} {{.CapitalizedName}}) MarshalYAML() (interface{}, error) 
 
 // UnmarshalYAML implements yaml.Unmarshaler.
 func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	var value *{{.FullName}}
+	var value {{.FullName}}
 	if err := unmarshal(&value); err != nil {
 		return err
 	}
-	if value == nil {
-		{{.ShortenName}}.Clear()
-		return nil
-	}
-	{{.ShortenName}}.Set(*value)
+	{{.ShortenName}}.Set(value)
 	return nil
 }
 {{- end}}
