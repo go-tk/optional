@@ -48,6 +48,8 @@ func main() {
 		packageName + "_test.go": generateTestingCode(),
 		"json.go":                generateCodeForJSON(),
 		"json_test.go":           generateTestingCodeForJSON(),
+		"yaml.go":                generateCodeForYAML(),
+		"yaml_test.go":           generateTestingCodeForYAML(),
 	}
 	for fileName, code := range fileName2Code {
 		code2, err := format.Source(code)
@@ -322,6 +324,144 @@ func Test{{.CapitalizedName}}_MarshalAndUnmarshalJSON(t *testing.T) {
 func Test{{.CapitalizedName}}_UnmarshalJSON(t *testing.T) {
 	var {{.ShortenName}} {{.CapitalizedName}}
 	err := json.Unmarshal([]byte("{}"), &{{.ShortenName}})
+	if err == nil {
+		t.Error("should encounter error")
+	}
+}
+{{- end}}
+{{- end}}
+`)).Execute(&buffer, typeInfos); err != nil {
+		panic(err)
+	}
+	return buffer.Bytes()
+}
+
+func generateCodeForYAML() []byte {
+	var buffer bytes.Buffer
+	if err := template.Must(template.New("").Parse(`// Code generated. DO NOT EDIT.
+
+package `+packageName+`
+
+import (
+	"fmt"
+	"time"
+)
+{{- range .}}
+{{- if and (ne .FullName "complex64") (ne .FullName "complex128")}}
+{{- if eq .FullName "time.Duration"}}
+
+func ({{.ShortenName}} {{.CapitalizedName}}) MarshalYAML() (interface{}, error) {
+	if !{{.ShortenName}}.hasValue {
+		return nil, nil
+	}
+	valueStr := {{.ShortenName}}.value.String()
+	return valueStr, nil
+}
+
+func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	var valueStr *string
+	if err := unmarshal(&valueStr); err != nil {
+		return err
+	}
+	if valueStr == nil {
+		{{.ShortenName}}.Clear()
+		return nil
+	}
+	value, err := time.ParseDuration(*valueStr)
+	if err != nil {
+		return fmt.Errorf("duration parse failed; valueStr=%q: %v", *valueStr, err)
+	}
+	{{.ShortenName}}.Set(value)
+	return nil
+}
+{{- else}}
+
+func ({{.ShortenName}} {{.CapitalizedName}}) MarshalYAML() (interface{}, error) {
+	if !{{.ShortenName}}.hasValue {
+		return nil, nil
+	}
+	return {{.ShortenName}}.value, nil
+}
+
+func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	var value *{{.FullName}}
+	if err := unmarshal(&value); err != nil {
+		return err
+	}
+	if value == nil {
+		{{.ShortenName}}.Clear()
+		return nil
+	}
+	{{.ShortenName}}.Set(*value)
+	return nil
+}
+{{- end}}
+{{- end}}
+{{- end}}
+`)).Execute(&buffer, typeInfos); err != nil {
+		panic(err)
+	}
+	return buffer.Bytes()
+}
+
+func generateTestingCodeForYAML() []byte {
+	var buffer bytes.Buffer
+	if err := template.Must(template.New("").Parse(`// Code generated. DO NOT EDIT.
+
+package `+packageName+`_test
+
+import (
+	"testing"
+	"time"
+
+	. "`+packagePath+`"
+	"gopkg.in/yaml.v2"
+)
+{{- range .}}
+{{- if and (ne .FullName "complex64") (ne .FullName "complex128")}}
+
+func Test{{.CapitalizedName}}_MarshalAndUnmarshalYAML(t *testing.T) {
+	{
+		var {{.ShortenName}}1 {{.CapitalizedName}}
+		data, err := yaml.Marshal({{.ShortenName}}1)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if string(data) != "null\n" {
+			t.Error("should be null yaml")
+		}
+		{{.ShortenName}}2 := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
+		err = yaml.Unmarshal(data, &{{.ShortenName}}2)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if {{.ShortenName}}1 != {{.ShortenName}}2 {
+			t.Error("should be equal values")
+		}
+	}
+	{
+		{{.ShortenName}}1 := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
+		data, err := yaml.Marshal({{.ShortenName}}1)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if string(data) == "null\n" {
+			t.Error("should not be null yaml")
+		}
+		var {{.ShortenName}}2 {{.CapitalizedName}}
+		err = yaml.Unmarshal(data, &{{.ShortenName}}2)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if {{.ShortenName}}1 != {{.ShortenName}}2 {
+			t.Error("should be equal values")
+		}
+	}
+}
+
+func Test{{.CapitalizedName}}_UnmarshalYAML(t *testing.T) {
+	var {{.ShortenName}} {{.CapitalizedName}}
+	err := yaml.Unmarshal([]byte("{}"), &{{.ShortenName}})
 	if err == nil {
 		t.Error("should encounter error")
 	}
