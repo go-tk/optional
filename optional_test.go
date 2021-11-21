@@ -1,10 +1,12 @@
 // Code generated. DO NOT EDIT.
 
-package optional
+package optional_test
 
 import (
 	"testing"
 	"time"
+
+	. "github.com/go-tk/optional"
 )
 
 func TestBool_Set(t *testing.T) {

@@ -10,6 +10,7 @@ import (
 	"text/template"
 )
 
+const packagePath = "github.com/go-tk/optional"
 const packageName = "optional"
 
 var typeInfos = []struct {
@@ -104,11 +105,13 @@ func generateTestingCode() []byte {
 	var buffer bytes.Buffer
 	if err := template.Must(template.New("").Parse(`// Code generated. DO NOT EDIT.
 
-package `+packageName+`
+package `+packageName+`_test
 
 import (
 	"testing"
 	"time"
+
+	. "`+packagePath+`"
 )
 {{- range .}}
 
@@ -265,12 +268,14 @@ func generateTestingCodeForJSON() []byte {
 	var buffer bytes.Buffer
 	if err := template.Must(template.New("").Parse(`// Code generated. DO NOT EDIT.
 
-package `+packageName+`
+package `+packageName+`_test
 
 import (
 	"encoding/json"
 	"testing"
 	"time"
+
+	. "`+packagePath+`"
 )
 {{- range .}}
 {{- if and (ne .FullName "complex64") (ne .FullName "complex128")}}

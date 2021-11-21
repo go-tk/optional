@@ -1,11 +1,13 @@
 // Code generated. DO NOT EDIT.
 
-package optional
+package optional_test
 
 import (
 	"encoding/json"
 	"testing"
 	"time"
+
+	. "github.com/go-tk/optional"
 )
 
 func TestBool_MarshalAndUnmarshalJSON(t *testing.T) {

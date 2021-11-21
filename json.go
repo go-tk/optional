@@ -367,7 +367,7 @@ func (d *Duration) UnmarshalJSON(data []byte) error {
 	}
 	value, err := time.ParseDuration(valueStr)
 	if err != nil {
-		return fmt.Errorf("optional: duration parse failed; valueStr=%q: %v", valueStr, err)
+		return fmt.Errorf("duration parse failed; valueStr=%q: %v", valueStr, err)
 	}
 	d.Set(value)
 	return nil
