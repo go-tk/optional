@@ -16,33 +16,37 @@ var typeInfos = []struct {
 	FullName        string
 	CapitalizedName string
 	ShortenName     string
+	ZeroLiteral     string
+	NonZeroLiteral  string
 }{
-	{"bool", "Bool", "b"},
-	{"byte", "Byte", "b"},
-	{"int", "Int", "i"},
-	{"uint", "Uint", "u"},
-	{"int8", "Int8", "i"},
-	{"uint8", "Uint8", "u"},
-	{"int16", "Int16", "i"},
-	{"uint16", "Uint16", "u"},
-	{"int32", "Int32", "i"},
-	{"uint32", "Uint32", "u"},
-	{"int64", "Int64", "i"},
-	{"uint64", "Uint64", "u"},
-	{"uintptr", "Uintptr", "u"},
-	{"float32", "Float32", "f"},
-	{"float64", "Float64", "f"},
-	{"complex64", "Complex64", "c"},
-	{"complex128", "Complex128", "c"},
-	{"rune", "Rune", "r"},
-	{"string", "String", "s"},
-	{"time.Duration", "Duration", "d"},
+	{"bool", "Bool", "b", "false", "true"},
+	{"byte", "Byte", "b", `'\000'`, "'b'"},
+	{"int", "Int", "i", "0", "100"},
+	{"uint", "Uint", "u", "0", "100"},
+	{"int8", "Int8", "i", "0", "100"},
+	{"uint8", "Uint8", "u", "0", "100"},
+	{"int16", "Int16", "i", "0", "100"},
+	{"uint16", "Uint16", "u", "0", "100"},
+	{"int32", "Int32", "i", "0", "100"},
+	{"uint32", "Uint32", "u", "0", "100"},
+	{"int64", "Int64", "i", "0", "100"},
+	{"uint64", "Uint64", "u", "0", "100"},
+	{"uintptr", "Uintptr", "u", "0", "100"},
+	{"float32", "Float32", "f", "0.0", "1.0"},
+	{"float64", "Float64", "f", "0.0", "1.0"},
+	{"complex64", "Complex64", "c", "complex(0, 0)", "complex(1, 2)"},
+	{"complex128", "Complex128", "c", "complex(0, 0)", "complex(1, 2)"},
+	{"rune", "Rune", "r", `'\000'`, "'😊'"},
+	{"string", "String", "s", `""`, `"foo"`},
+	{"time.Duration", "Duration", "d", "0", "100 * time.Second"},
 }
 
 func main() {
 	fileName2Code := map[string][]byte{
-		packageName + ".go": generateCode(),
-		"json.go":           generateCodeForJSON(),
+		packageName + ".go":      generateCode(),
+		packageName + "_test.go": generateTestingCode(),
+		"json.go":                generateCodeForJSON(),
+		"json_test.go":           generateTestingCodeForJSON(),
 	}
 	for fileName, code := range fileName2Code {
 		code2, err := format.Source(code)
@@ -96,6 +100,98 @@ func ({{.ShortenName}} {{.CapitalizedName}}) HasValue() bool { return {{.Shorten
 	return buffer.Bytes()
 }
 
+func generateTestingCode() []byte {
+	var buffer bytes.Buffer
+	if err := template.Must(template.New("").Parse(`// Code generated. DO NOT EDIT.
+
+package `+packageName+`
+
+import (
+	"testing"
+	"time"
+)
+{{- range .}}
+
+func Test{{.CapitalizedName}}_Set(t *testing.T) {
+	var {{.ShortenName}} {{.CapitalizedName}}
+	{{.ShortenName}}.Set({{.NonZeroLiteral}})
+	if {{.ShortenName}} != Make{{.CapitalizedName}}({{.NonZeroLiteral}}) {
+		t.Error("should be expected value")
+	}
+}
+
+func Test{{.CapitalizedName}}_Clear(t *testing.T) {
+	{{.ShortenName}} := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
+	{{.ShortenName}}.Clear()
+	if {{.ShortenName}} != ({{.CapitalizedName}}{}) {
+		t.Error("should be zero value")
+	}
+}
+
+func Test{{.CapitalizedName}}_Value(t *testing.T) {
+	{
+		{{.ShortenName}} := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
+		if {{.ShortenName}}.Value() != {{.NonZeroLiteral}} {
+			t.Error("should be expected value")
+		}
+	}
+	{
+		var {{.ShortenName}} {{.CapitalizedName}}
+		if {{.ShortenName}}.Value() != {{.ZeroLiteral}} {
+			t.Error("should be zero value")
+		}
+	}
+	{
+		var {{.ShortenName}} {{.CapitalizedName}}
+		{{.ShortenName}}.Set({{.NonZeroLiteral}})
+		if {{.ShortenName}}.Value() != {{.NonZeroLiteral}} {
+			t.Error("should be expected value")
+		}
+	}
+	{
+		{{.ShortenName}} := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
+		{{.ShortenName}}.Clear()
+		if {{.ShortenName}}.Value() != {{.ZeroLiteral}} {
+			t.Error("should be zero value")
+		}
+	}
+}
+
+func Test{{.CapitalizedName}}_HasValue(t *testing.T) {
+	{
+		{{.ShortenName}} := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
+		if !{{.ShortenName}}.HasValue() {
+			t.Error("should have value")
+		}
+	}
+	{
+		var {{.ShortenName}} {{.CapitalizedName}}
+		if {{.ShortenName}}.HasValue() {
+			t.Error("should have no value")
+		}
+	}
+	{
+		var {{.ShortenName}} {{.CapitalizedName}}
+		{{.ShortenName}}.Set({{.NonZeroLiteral}})
+		if !{{.ShortenName}}.HasValue() {
+			t.Error("should have value")
+		}
+	}
+	{
+		{{.ShortenName}} := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
+		{{.ShortenName}}.Clear()
+		if {{.ShortenName}}.HasValue() {
+			t.Error("should have no value")
+		}
+	}
+}
+{{- end}}
+`)).Execute(&buffer, typeInfos); err != nil {
+		panic(err)
+	}
+	return buffer.Bytes()
+}
+
 func generateCodeForJSON() []byte {
 	var buffer bytes.Buffer
 	if err := template.Must(template.New("").Parse(`// Code generated. DO NOT EDIT.
@@ -104,6 +200,7 @@ package `+packageName+`
 
 import (
 	"encoding/json"
+	"time"
 )
 {{- range .}}
 {{- if and (ne .FullName "complex64") (ne .FullName "complex128")}}
@@ -117,10 +214,83 @@ func ({{.ShortenName}} {{.CapitalizedName}}) MarshalJSON() ([]byte, error) {
 
 func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*{{.ShortenName}} = {{.CapitalizedName}}{}
+		{{.ShortenName}}.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &{{.ShortenName}}.value)
+	var value {{.FullName}}
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	{{.ShortenName}}.Set(value)
+	return nil
+}
+{{- end}}
+{{- end}}
+`)).Execute(&buffer, typeInfos); err != nil {
+		panic(err)
+	}
+	return buffer.Bytes()
+}
+
+func generateTestingCodeForJSON() []byte {
+	var buffer bytes.Buffer
+	if err := template.Must(template.New("").Parse(`// Code generated. DO NOT EDIT.
+
+package `+packageName+`
+
+import (
+	"encoding/json"
+	"testing"
+	"time"
+)
+{{- range .}}
+{{- if and (ne .FullName "complex64") (ne .FullName "complex128")}}
+
+func Test{{.CapitalizedName}}_MarshalAndUnmarshalJSON(t *testing.T) {
+	{
+		var {{.ShortenName}}1 {{.CapitalizedName}}
+		data, err := json.Marshal({{.ShortenName}}1)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if string(data) != "null" {
+			t.Error("should be null json")
+		}
+		{{.ShortenName}}2 := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
+		err = json.Unmarshal(data, &{{.ShortenName}}2)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if {{.ShortenName}}1 != {{.ShortenName}}2 {
+			t.Error("should be equal values")
+		}
+	}
+	{
+		{{.ShortenName}}1 := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
+		data, err := json.Marshal({{.ShortenName}}1)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if string(data) == "null" {
+			t.Error("should not be null json")
+		}
+		var {{.ShortenName}}2 {{.CapitalizedName}}
+		err = json.Unmarshal(data, &{{.ShortenName}}2)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if {{.ShortenName}}1 != {{.ShortenName}}2 {
+			t.Error("should be equal values")
+		}
+	}
+}
+
+func Test{{.CapitalizedName}}_UnmarshalJSON(t *testing.T) {
+	var {{.ShortenName}} {{.CapitalizedName}}
+	err := json.Unmarshal([]byte("{}"), &{{.ShortenName}})
+	if err == nil {
+		t.Error("should encounter error")
+	}
 }
 {{- end}}
 {{- end}}

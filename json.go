@@ -4,6 +4,7 @@ package optional
 
 import (
 	"encoding/json"
+	"time"
 )
 
 func (b Bool) MarshalJSON() ([]byte, error) {
@@ -15,10 +16,15 @@ func (b Bool) MarshalJSON() ([]byte, error) {
 
 func (b *Bool) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*b = Bool{}
+		b.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &b.value)
+	var value bool
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	b.Set(value)
+	return nil
 }
 
 func (b Byte) MarshalJSON() ([]byte, error) {
@@ -30,10 +36,15 @@ func (b Byte) MarshalJSON() ([]byte, error) {
 
 func (b *Byte) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*b = Byte{}
+		b.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &b.value)
+	var value byte
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	b.Set(value)
+	return nil
 }
 
 func (i Int) MarshalJSON() ([]byte, error) {
@@ -45,10 +56,15 @@ func (i Int) MarshalJSON() ([]byte, error) {
 
 func (i *Int) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*i = Int{}
+		i.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &i.value)
+	var value int
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	i.Set(value)
+	return nil
 }
 
 func (u Uint) MarshalJSON() ([]byte, error) {
@@ -60,10 +76,15 @@ func (u Uint) MarshalJSON() ([]byte, error) {
 
 func (u *Uint) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*u = Uint{}
+		u.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &u.value)
+	var value uint
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	u.Set(value)
+	return nil
 }
 
 func (i Int8) MarshalJSON() ([]byte, error) {
@@ -75,10 +96,15 @@ func (i Int8) MarshalJSON() ([]byte, error) {
 
 func (i *Int8) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*i = Int8{}
+		i.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &i.value)
+	var value int8
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	i.Set(value)
+	return nil
 }
 
 func (u Uint8) MarshalJSON() ([]byte, error) {
@@ -90,10 +116,15 @@ func (u Uint8) MarshalJSON() ([]byte, error) {
 
 func (u *Uint8) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*u = Uint8{}
+		u.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &u.value)
+	var value uint8
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	u.Set(value)
+	return nil
 }
 
 func (i Int16) MarshalJSON() ([]byte, error) {
@@ -105,10 +136,15 @@ func (i Int16) MarshalJSON() ([]byte, error) {
 
 func (i *Int16) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*i = Int16{}
+		i.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &i.value)
+	var value int16
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	i.Set(value)
+	return nil
 }
 
 func (u Uint16) MarshalJSON() ([]byte, error) {
@@ -120,10 +156,15 @@ func (u Uint16) MarshalJSON() ([]byte, error) {
 
 func (u *Uint16) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*u = Uint16{}
+		u.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &u.value)
+	var value uint16
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	u.Set(value)
+	return nil
 }
 
 func (i Int32) MarshalJSON() ([]byte, error) {
@@ -135,10 +176,15 @@ func (i Int32) MarshalJSON() ([]byte, error) {
 
 func (i *Int32) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*i = Int32{}
+		i.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &i.value)
+	var value int32
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	i.Set(value)
+	return nil
 }
 
 func (u Uint32) MarshalJSON() ([]byte, error) {
@@ -150,10 +196,15 @@ func (u Uint32) MarshalJSON() ([]byte, error) {
 
 func (u *Uint32) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*u = Uint32{}
+		u.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &u.value)
+	var value uint32
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	u.Set(value)
+	return nil
 }
 
 func (i Int64) MarshalJSON() ([]byte, error) {
@@ -165,10 +216,15 @@ func (i Int64) MarshalJSON() ([]byte, error) {
 
 func (i *Int64) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*i = Int64{}
+		i.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &i.value)
+	var value int64
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	i.Set(value)
+	return nil
 }
 
 func (u Uint64) MarshalJSON() ([]byte, error) {
@@ -180,10 +236,15 @@ func (u Uint64) MarshalJSON() ([]byte, error) {
 
 func (u *Uint64) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*u = Uint64{}
+		u.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &u.value)
+	var value uint64
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	u.Set(value)
+	return nil
 }
 
 func (u Uintptr) MarshalJSON() ([]byte, error) {
@@ -195,10 +256,15 @@ func (u Uintptr) MarshalJSON() ([]byte, error) {
 
 func (u *Uintptr) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*u = Uintptr{}
+		u.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &u.value)
+	var value uintptr
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	u.Set(value)
+	return nil
 }
 
 func (f Float32) MarshalJSON() ([]byte, error) {
@@ -210,10 +276,15 @@ func (f Float32) MarshalJSON() ([]byte, error) {
 
 func (f *Float32) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*f = Float32{}
+		f.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &f.value)
+	var value float32
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	f.Set(value)
+	return nil
 }
 
 func (f Float64) MarshalJSON() ([]byte, error) {
@@ -225,10 +296,15 @@ func (f Float64) MarshalJSON() ([]byte, error) {
 
 func (f *Float64) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*f = Float64{}
+		f.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &f.value)
+	var value float64
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	f.Set(value)
+	return nil
 }
 
 func (r Rune) MarshalJSON() ([]byte, error) {
@@ -240,10 +316,15 @@ func (r Rune) MarshalJSON() ([]byte, error) {
 
 func (r *Rune) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*r = Rune{}
+		r.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &r.value)
+	var value rune
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	r.Set(value)
+	return nil
 }
 
 func (s String) MarshalJSON() ([]byte, error) {
@@ -255,10 +336,15 @@ func (s String) MarshalJSON() ([]byte, error) {
 
 func (s *String) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*s = String{}
+		s.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &s.value)
+	var value string
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	s.Set(value)
+	return nil
 }
 
 func (d Duration) MarshalJSON() ([]byte, error) {
@@ -270,8 +356,13 @@ func (d Duration) MarshalJSON() ([]byte, error) {
 
 func (d *Duration) UnmarshalJSON(data []byte) error {
 	if string(data) == "null" {
-		*d = Duration{}
+		d.Clear()
 		return nil
 	}
-	return json.Unmarshal(data, &d.value)
+	var value time.Duration
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	d.Set(value)
+	return nil
 }
