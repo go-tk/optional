@@ -4,6 +4,7 @@ package optional
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -351,7 +352,8 @@ func (d Duration) MarshalJSON() ([]byte, error) {
 	if !d.hasValue {
 		return []byte("null"), nil
 	}
-	return json.Marshal(d.value)
+	valueStr := d.value.String()
+	return json.Marshal(valueStr)
 }
 
 func (d *Duration) UnmarshalJSON(data []byte) error {
@@ -359,9 +361,13 @@ func (d *Duration) UnmarshalJSON(data []byte) error {
 		d.Clear()
 		return nil
 	}
-	var value time.Duration
-	if err := json.Unmarshal(data, &value); err != nil {
+	var valueStr string
+	if err := json.Unmarshal(data, &valueStr); err != nil {
 		return err
+	}
+	value, err := time.ParseDuration(valueStr)
+	if err != nil {
+		return fmt.Errorf("optional: duration parse failed; valueStr=%q: %v", valueStr, err)
 	}
 	d.Set(value)
 	return nil

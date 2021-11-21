@@ -200,10 +200,38 @@ package `+packageName+`
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 {{- range .}}
 {{- if and (ne .FullName "complex64") (ne .FullName "complex128")}}
+{{- if eq .FullName "time.Duration"}}
+
+func ({{.ShortenName}} {{.CapitalizedName}}) MarshalJSON() ([]byte, error) {
+	if !{{.ShortenName}}.hasValue {
+		return []byte("null"), nil
+	}
+	valueStr := {{.ShortenName}}.value.String()
+	return json.Marshal(valueStr)
+}
+
+func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalJSON(data []byte) error {
+	if string(data) == "null" {
+		{{.ShortenName}}.Clear()
+		return nil
+	}
+	var valueStr string
+	if err := json.Unmarshal(data, &valueStr); err != nil {
+		return err
+	}
+	value, err := time.ParseDuration(valueStr)
+	if err != nil {
+		return fmt.Errorf("duration parse failed; valueStr=%q: %v", valueStr, err)
+	}
+	{{.ShortenName}}.Set(value)
+	return nil
+}
+{{- else}}
 
 func ({{.ShortenName}} {{.CapitalizedName}}) MarshalJSON() ([]byte, error) {
 	if !{{.ShortenName}}.hasValue {
@@ -224,6 +252,7 @@ func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalJSON(data []byte) error {
 	{{.ShortenName}}.Set(value)
 	return nil
 }
+{{- end}}
 {{- end}}
 {{- end}}
 `)).Execute(&buffer, typeInfos); err != nil {
