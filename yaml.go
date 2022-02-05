@@ -330,7 +330,7 @@ func (d *Duration) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	}
 	value, err := time.ParseDuration(valueStr)
 	if err != nil {
-		return fmt.Errorf("duration parse failed; valueStr=%q: %v", valueStr, err)
+		return fmt.Errorf("parse duration; valueStr=%q: %w", valueStr, err)
 	}
 	d.Set(value)
 	return nil

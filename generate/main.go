@@ -241,7 +241,7 @@ func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalJSON(data []byte) error {
 	}
 	value, err := time.ParseDuration(valueStr)
 	if err != nil {
-		return fmt.Errorf("duration parse failed; valueStr=%q: %v", valueStr, err)
+		return fmt.Errorf("parse duration; valueStr=%q: %w", valueStr, err)
 	}
 	{{.ShortenName}}.Set(value)
 	return nil
@@ -379,7 +379,7 @@ func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalYAML(unmarshal func(inter
 	}
 	value, err := time.ParseDuration(valueStr)
 	if err != nil {
-		return fmt.Errorf("duration parse failed; valueStr=%q: %v", valueStr, err)
+		return fmt.Errorf("parse duration; valueStr=%q: %w", valueStr, err)
 	}
 	{{.ShortenName}}.Set(value)
 	return nil
