@@ -3,6 +3,7 @@
 package optional
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -11,14 +12,14 @@ import (
 // MarshalJSON implements json.Marshaler.
 func (b Bool) MarshalJSON() ([]byte, error) {
 	if !b.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(b.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (b *Bool) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		b.Clear()
 		return nil
 	}
@@ -33,14 +34,14 @@ func (b *Bool) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (b Byte) MarshalJSON() ([]byte, error) {
 	if !b.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(b.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (b *Byte) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		b.Clear()
 		return nil
 	}
@@ -55,14 +56,14 @@ func (b *Byte) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (i Int) MarshalJSON() ([]byte, error) {
 	if !i.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(i.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (i *Int) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		i.Clear()
 		return nil
 	}
@@ -77,14 +78,14 @@ func (i *Int) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (u Uint) MarshalJSON() ([]byte, error) {
 	if !u.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(u.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (u *Uint) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		u.Clear()
 		return nil
 	}
@@ -99,14 +100,14 @@ func (u *Uint) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (i Int8) MarshalJSON() ([]byte, error) {
 	if !i.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(i.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (i *Int8) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		i.Clear()
 		return nil
 	}
@@ -121,14 +122,14 @@ func (i *Int8) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (u Uint8) MarshalJSON() ([]byte, error) {
 	if !u.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(u.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (u *Uint8) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		u.Clear()
 		return nil
 	}
@@ -143,14 +144,14 @@ func (u *Uint8) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (i Int16) MarshalJSON() ([]byte, error) {
 	if !i.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(i.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (i *Int16) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		i.Clear()
 		return nil
 	}
@@ -165,14 +166,14 @@ func (i *Int16) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (u Uint16) MarshalJSON() ([]byte, error) {
 	if !u.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(u.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (u *Uint16) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		u.Clear()
 		return nil
 	}
@@ -187,14 +188,14 @@ func (u *Uint16) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (i Int32) MarshalJSON() ([]byte, error) {
 	if !i.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(i.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (i *Int32) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		i.Clear()
 		return nil
 	}
@@ -209,14 +210,14 @@ func (i *Int32) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (u Uint32) MarshalJSON() ([]byte, error) {
 	if !u.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(u.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (u *Uint32) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		u.Clear()
 		return nil
 	}
@@ -231,14 +232,14 @@ func (u *Uint32) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (i Int64) MarshalJSON() ([]byte, error) {
 	if !i.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(i.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (i *Int64) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		i.Clear()
 		return nil
 	}
@@ -253,14 +254,14 @@ func (i *Int64) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (u Uint64) MarshalJSON() ([]byte, error) {
 	if !u.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(u.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (u *Uint64) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		u.Clear()
 		return nil
 	}
@@ -275,14 +276,14 @@ func (u *Uint64) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (u Uintptr) MarshalJSON() ([]byte, error) {
 	if !u.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(u.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (u *Uintptr) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		u.Clear()
 		return nil
 	}
@@ -297,14 +298,14 @@ func (u *Uintptr) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (f Float32) MarshalJSON() ([]byte, error) {
 	if !f.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(f.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (f *Float32) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		f.Clear()
 		return nil
 	}
@@ -319,14 +320,14 @@ func (f *Float32) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (f Float64) MarshalJSON() ([]byte, error) {
 	if !f.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(f.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (f *Float64) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		f.Clear()
 		return nil
 	}
@@ -341,14 +342,14 @@ func (f *Float64) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (r Rune) MarshalJSON() ([]byte, error) {
 	if !r.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(r.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (r *Rune) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		r.Clear()
 		return nil
 	}
@@ -363,14 +364,14 @@ func (r *Rune) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (s String) MarshalJSON() ([]byte, error) {
 	if !s.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal(s.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (s *String) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		s.Clear()
 		return nil
 	}
@@ -385,7 +386,7 @@ func (s *String) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func (d Duration) MarshalJSON() ([]byte, error) {
 	if !d.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	valueStr := d.value.String()
 	return json.Marshal(valueStr)
@@ -393,7 +394,7 @@ func (d Duration) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements json.Unmarshaler.
 func (d *Duration) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		d.Clear()
 		return nil
 	}
@@ -408,3 +409,5 @@ func (d *Duration) UnmarshalJSON(data []byte) error {
 	d.Set(value)
 	return nil
 }
+
+var bytesOfNull = []byte("null")

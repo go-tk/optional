@@ -212,6 +212,7 @@ func generateCodeForJSON() []byte {
 package `+packageName+`
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -223,7 +224,7 @@ import (
 // MarshalJSON implements json.Marshaler.
 func ({{.ShortenName}} {{.CapitalizedName}}) MarshalJSON() ([]byte, error) {
 	if !{{.ShortenName}}.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	valueStr := {{.ShortenName}}.value.String()
 	return json.Marshal(valueStr)
@@ -231,7 +232,7 @@ func ({{.ShortenName}} {{.CapitalizedName}}) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements json.Unmarshaler.
 func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		{{.ShortenName}}.Clear()
 		return nil
 	}
@@ -251,14 +252,14 @@ func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements json.Marshaler.
 func ({{.ShortenName}} {{.CapitalizedName}}) MarshalJSON() ([]byte, error) {
 	if !{{.ShortenName}}.hasValue {
-		return []byte("null"), nil
+		return bytesOfNull, nil
 	}
 	return json.Marshal({{.ShortenName}}.value)
 }
 
 // UnmarshalJSON implements json.Unmarshaler.
 func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalJSON(data []byte) error {
-	if string(data) == "null" {
+	if bytes.Compare(data, bytesOfNull) == 0 {
 		{{.ShortenName}}.Clear()
 		return nil
 	}
@@ -272,6 +273,8 @@ func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalJSON(data []byte) error {
 {{- end}}
 {{- end}}
 {{- end}}
+
+var bytesOfNull = []byte("null")
 `)).Execute(&buffer, typeInfos); err != nil {
 		panic(err)
 	}
