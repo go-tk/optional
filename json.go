@@ -11,7 +11,7 @@ import (
 
 // MarshalJSON implements json.Marshaler.
 func (b Bool) MarshalJSON() ([]byte, error) {
-	if !b.hasValue {
+	if !b.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(b.value)
@@ -33,7 +33,7 @@ func (b *Bool) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (b Byte) MarshalJSON() ([]byte, error) {
-	if !b.hasValue {
+	if !b.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(b.value)
@@ -55,7 +55,7 @@ func (b *Byte) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (i Int) MarshalJSON() ([]byte, error) {
-	if !i.hasValue {
+	if !i.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(i.value)
@@ -77,7 +77,7 @@ func (i *Int) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (u Uint) MarshalJSON() ([]byte, error) {
-	if !u.hasValue {
+	if !u.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(u.value)
@@ -99,7 +99,7 @@ func (u *Uint) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (i Int8) MarshalJSON() ([]byte, error) {
-	if !i.hasValue {
+	if !i.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(i.value)
@@ -121,7 +121,7 @@ func (i *Int8) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (u Uint8) MarshalJSON() ([]byte, error) {
-	if !u.hasValue {
+	if !u.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(u.value)
@@ -143,7 +143,7 @@ func (u *Uint8) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (i Int16) MarshalJSON() ([]byte, error) {
-	if !i.hasValue {
+	if !i.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(i.value)
@@ -165,7 +165,7 @@ func (i *Int16) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (u Uint16) MarshalJSON() ([]byte, error) {
-	if !u.hasValue {
+	if !u.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(u.value)
@@ -187,7 +187,7 @@ func (u *Uint16) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (i Int32) MarshalJSON() ([]byte, error) {
-	if !i.hasValue {
+	if !i.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(i.value)
@@ -209,7 +209,7 @@ func (i *Int32) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (u Uint32) MarshalJSON() ([]byte, error) {
-	if !u.hasValue {
+	if !u.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(u.value)
@@ -231,7 +231,7 @@ func (u *Uint32) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (i Int64) MarshalJSON() ([]byte, error) {
-	if !i.hasValue {
+	if !i.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(i.value)
@@ -253,7 +253,7 @@ func (i *Int64) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (u Uint64) MarshalJSON() ([]byte, error) {
-	if !u.hasValue {
+	if !u.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(u.value)
@@ -275,7 +275,7 @@ func (u *Uint64) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (u Uintptr) MarshalJSON() ([]byte, error) {
-	if !u.hasValue {
+	if !u.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(u.value)
@@ -297,7 +297,7 @@ func (u *Uintptr) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (f Float32) MarshalJSON() ([]byte, error) {
-	if !f.hasValue {
+	if !f.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(f.value)
@@ -319,7 +319,7 @@ func (f *Float32) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (f Float64) MarshalJSON() ([]byte, error) {
-	if !f.hasValue {
+	if !f.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(f.value)
@@ -341,7 +341,7 @@ func (f *Float64) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (r Rune) MarshalJSON() ([]byte, error) {
-	if !r.hasValue {
+	if !r.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(r.value)
@@ -363,7 +363,7 @@ func (r *Rune) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (s String) MarshalJSON() ([]byte, error) {
-	if !s.hasValue {
+	if !s.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal(s.value)
@@ -385,7 +385,7 @@ func (s *String) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func (d Duration) MarshalJSON() ([]byte, error) {
-	if !d.hasValue {
+	if !d.isSet {
 		return bytesOfNull, nil
 	}
 	valueStr := d.value.String()

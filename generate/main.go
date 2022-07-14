@@ -80,13 +80,16 @@ import (
 // {{.CapitalizedName}} represents an optional {{.FullName}} value.
 type {{.CapitalizedName}} struct {
        value {{.FullName}}
-       hasValue bool
+       isSet bool
 }
 
-// Make{{.CapitalizedName}} makes a new optional {{.FullName}} value with the given value.
+// Make{{.CapitalizedName}} makes a new optional {{.FullName}} value set to the given value.
 func Make{{.CapitalizedName}}(value {{.FullName}}) {{.CapitalizedName}} {
        return {{.CapitalizedName}}{value, true}
 }
+
+// Get returns the {{.FullName}} value and a boolean value indicating whether the {{.FullName}} value is set.
+func ({{.ShortenName}} {{.CapitalizedName}}) Get() ({{.FullName}}, bool) { return {{.ShortenName}}.value, {{.ShortenName}}.isSet }
 
 // Set sets the {{.FullName}} value.
 func ({{.ShortenName}} *{{.CapitalizedName}}) Set(value {{.FullName}}) {
@@ -98,12 +101,8 @@ func ({{.ShortenName}} *{{.CapitalizedName}}) Clear() {
 	*{{.ShortenName}} = {{.CapitalizedName}}{}
 }
 
-// Value returns the {{.FullName}} value.
-func ({{.ShortenName}} {{.CapitalizedName}}) Value() {{.FullName}} { return {{.ShortenName}}.value }
-
-
-// HasValue returns a boolean value indicating whether the {{.FullName}} value is set.
-func ({{.ShortenName}} {{.CapitalizedName}}) HasValue() bool { return {{.ShortenName}}.hasValue }
+// IsSet returns a boolean value indicating whether the {{.FullName}} value is set.
+func ({{.ShortenName}} {{.CapitalizedName}}) IsSet() bool { return {{.ShortenName}}.isSet }
 {{- end}}
 `)).Execute(&buffer, typeInfos); err != nil {
 		panic(err)
@@ -125,11 +124,56 @@ import (
 )
 {{- range .}}
 
+func Test{{.CapitalizedName}}_Get(t *testing.T) {
+	{
+		{{.ShortenName}} := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
+		v, ok := {{.ShortenName}}.Get()
+		if !ok {
+			t.Error("value should be set")
+		}
+		if v != {{.NonZeroLiteral}} {
+			t.Error("value should be expected")
+		}
+	}
+	{
+		var {{.ShortenName}} {{.CapitalizedName}}
+		v, ok := {{.ShortenName}}.Get()
+		if ok {
+			t.Error("value should be unset")
+		}
+		if v != {{.ZeroLiteral}} {
+			t.Error("value should be zero")
+		}
+	}
+	{
+		var {{.ShortenName}} {{.CapitalizedName}}
+		{{.ShortenName}}.Set({{.NonZeroLiteral}})
+		v, ok := {{.ShortenName}}.Get()
+		if !ok {
+			t.Error("value should be set")
+		}
+		if v != {{.NonZeroLiteral}} {
+			t.Error("value should be expected")
+		}
+	}
+	{
+		{{.ShortenName}} := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
+		{{.ShortenName}}.Clear()
+		v, ok := {{.ShortenName}}.Get()
+		if ok {
+			t.Error("value should be unset")
+		}
+		if v != {{.ZeroLiteral}} {
+			t.Error("value should be zero")
+		}
+	}
+}
+
 func Test{{.CapitalizedName}}_Set(t *testing.T) {
 	var {{.ShortenName}} {{.CapitalizedName}}
 	{{.ShortenName}}.Set({{.NonZeroLiteral}})
 	if {{.ShortenName}} != Make{{.CapitalizedName}}({{.NonZeroLiteral}}) {
-		t.Error("should be expected value")
+		t.Error("value should be expected")
 	}
 }
 
@@ -137,64 +181,35 @@ func Test{{.CapitalizedName}}_Clear(t *testing.T) {
 	{{.ShortenName}} := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
 	{{.ShortenName}}.Clear()
 	if {{.ShortenName}} != ({{.CapitalizedName}}{}) {
-		t.Error("should be zero value")
+		t.Error("value should be zero")
 	}
 }
 
-func Test{{.CapitalizedName}}_Value(t *testing.T) {
+func Test{{.CapitalizedName}}_IsSet(t *testing.T) {
 	{
 		{{.ShortenName}} := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
-		if {{.ShortenName}}.Value() != {{.NonZeroLiteral}} {
-			t.Error("should be expected value")
+		if !{{.ShortenName}}.IsSet() {
+			t.Error("value should be set")
 		}
 	}
 	{
 		var {{.ShortenName}} {{.CapitalizedName}}
-		if {{.ShortenName}}.Value() != {{.ZeroLiteral}} {
-			t.Error("should be zero value")
+		if {{.ShortenName}}.IsSet() {
+			t.Error("value should be unset")
 		}
 	}
 	{
 		var {{.ShortenName}} {{.CapitalizedName}}
 		{{.ShortenName}}.Set({{.NonZeroLiteral}})
-		if {{.ShortenName}}.Value() != {{.NonZeroLiteral}} {
-			t.Error("should be expected value")
+		if !{{.ShortenName}}.IsSet() {
+			t.Error("value should be set")
 		}
 	}
 	{
 		{{.ShortenName}} := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
 		{{.ShortenName}}.Clear()
-		if {{.ShortenName}}.Value() != {{.ZeroLiteral}} {
-			t.Error("should be zero value")
-		}
-	}
-}
-
-func Test{{.CapitalizedName}}_HasValue(t *testing.T) {
-	{
-		{{.ShortenName}} := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
-		if !{{.ShortenName}}.HasValue() {
-			t.Error("should have value")
-		}
-	}
-	{
-		var {{.ShortenName}} {{.CapitalizedName}}
-		if {{.ShortenName}}.HasValue() {
-			t.Error("should have no value")
-		}
-	}
-	{
-		var {{.ShortenName}} {{.CapitalizedName}}
-		{{.ShortenName}}.Set({{.NonZeroLiteral}})
-		if !{{.ShortenName}}.HasValue() {
-			t.Error("should have value")
-		}
-	}
-	{
-		{{.ShortenName}} := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
-		{{.ShortenName}}.Clear()
-		if {{.ShortenName}}.HasValue() {
-			t.Error("should have no value")
+		if {{.ShortenName}}.IsSet() {
+			t.Error("value should be unset")
 		}
 	}
 }
@@ -223,7 +238,7 @@ import (
 
 // MarshalJSON implements json.Marshaler.
 func ({{.ShortenName}} {{.CapitalizedName}}) MarshalJSON() ([]byte, error) {
-	if !{{.ShortenName}}.hasValue {
+	if !{{.ShortenName}}.isSet {
 		return bytesOfNull, nil
 	}
 	valueStr := {{.ShortenName}}.value.String()
@@ -251,7 +266,7 @@ func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements json.Marshaler.
 func ({{.ShortenName}} {{.CapitalizedName}}) MarshalJSON() ([]byte, error) {
-	if !{{.ShortenName}}.hasValue {
+	if !{{.ShortenName}}.isSet {
 		return bytesOfNull, nil
 	}
 	return json.Marshal({{.ShortenName}}.value)
@@ -305,7 +320,7 @@ func Test{{.CapitalizedName}}_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		{{.ShortenName}}2 := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
 		err = json.Unmarshal(data, &{{.ShortenName}}2)
@@ -313,7 +328,7 @@ func Test{{.CapitalizedName}}_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if {{.ShortenName}}1 != {{.ShortenName}}2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -323,7 +338,7 @@ func Test{{.CapitalizedName}}_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var {{.ShortenName}}2 {{.CapitalizedName}}
 		err = json.Unmarshal(data, &{{.ShortenName}}2)
@@ -331,7 +346,7 @@ func Test{{.CapitalizedName}}_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if {{.ShortenName}}1 != {{.ShortenName}}2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -367,7 +382,7 @@ import (
 
 // MarshalYAML implements yaml.Marshaler.
 func ({{.ShortenName}} {{.CapitalizedName}}) MarshalYAML() (interface{}, error) {
-	if !{{.ShortenName}}.hasValue {
+	if !{{.ShortenName}}.isSet {
 		return nil, nil
 	}
 	valueStr := {{.ShortenName}}.value.String()
@@ -391,7 +406,7 @@ func ({{.ShortenName}} *{{.CapitalizedName}}) UnmarshalYAML(unmarshal func(inter
 
 // MarshalYAML implements yaml.Marshaler.
 func ({{.ShortenName}} {{.CapitalizedName}}) MarshalYAML() (interface{}, error) {
-	if !{{.ShortenName}}.hasValue {
+	if !{{.ShortenName}}.isSet {
 		return nil, nil
 	}
 	return {{.ShortenName}}.value, nil
@@ -439,7 +454,7 @@ func Test{{.CapitalizedName}}_MarshalAndUnmarshalYAML(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null\n" {
-			t.Error("should be null yaml")
+			t.Error("yaml should be null")
 		}
 		{{.ShortenName}}2 := Make{{.CapitalizedName}}({{.NonZeroLiteral}})
 		err = yaml.Unmarshal(data, &{{.ShortenName}}2)
@@ -447,7 +462,7 @@ func Test{{.CapitalizedName}}_MarshalAndUnmarshalYAML(t *testing.T) {
 			t.Fatal(err)
 		}
 		if {{.ShortenName}}1 != {{.ShortenName}}2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -457,7 +472,7 @@ func Test{{.CapitalizedName}}_MarshalAndUnmarshalYAML(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null\n" {
-			t.Error("should not be null yaml")
+			t.Error("yaml should not be null")
 		}
 		var {{.ShortenName}}2 {{.CapitalizedName}}
 		err = yaml.Unmarshal(data, &{{.ShortenName}}2)
@@ -465,7 +480,7 @@ func Test{{.CapitalizedName}}_MarshalAndUnmarshalYAML(t *testing.T) {
 			t.Fatal(err)
 		}
 		if {{.ShortenName}}1 != {{.ShortenName}}2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }

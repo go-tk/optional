@@ -18,7 +18,7 @@ func TestBool_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		b2 := MakeBool(true)
 		err = json.Unmarshal(data, &b2)
@@ -26,7 +26,7 @@ func TestBool_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if b1 != b2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -36,7 +36,7 @@ func TestBool_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var b2 Bool
 		err = json.Unmarshal(data, &b2)
@@ -44,7 +44,7 @@ func TestBool_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if b1 != b2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -65,7 +65,7 @@ func TestByte_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		b2 := MakeByte('b')
 		err = json.Unmarshal(data, &b2)
@@ -73,7 +73,7 @@ func TestByte_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if b1 != b2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -83,7 +83,7 @@ func TestByte_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var b2 Byte
 		err = json.Unmarshal(data, &b2)
@@ -91,7 +91,7 @@ func TestByte_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if b1 != b2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -112,7 +112,7 @@ func TestInt_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		i2 := MakeInt(100)
 		err = json.Unmarshal(data, &i2)
@@ -120,7 +120,7 @@ func TestInt_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if i1 != i2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -130,7 +130,7 @@ func TestInt_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var i2 Int
 		err = json.Unmarshal(data, &i2)
@@ -138,7 +138,7 @@ func TestInt_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if i1 != i2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -159,7 +159,7 @@ func TestUint_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		u2 := MakeUint(100)
 		err = json.Unmarshal(data, &u2)
@@ -167,7 +167,7 @@ func TestUint_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if u1 != u2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -177,7 +177,7 @@ func TestUint_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var u2 Uint
 		err = json.Unmarshal(data, &u2)
@@ -185,7 +185,7 @@ func TestUint_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if u1 != u2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -206,7 +206,7 @@ func TestInt8_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		i2 := MakeInt8(100)
 		err = json.Unmarshal(data, &i2)
@@ -214,7 +214,7 @@ func TestInt8_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if i1 != i2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -224,7 +224,7 @@ func TestInt8_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var i2 Int8
 		err = json.Unmarshal(data, &i2)
@@ -232,7 +232,7 @@ func TestInt8_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if i1 != i2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -253,7 +253,7 @@ func TestUint8_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		u2 := MakeUint8(100)
 		err = json.Unmarshal(data, &u2)
@@ -261,7 +261,7 @@ func TestUint8_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if u1 != u2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -271,7 +271,7 @@ func TestUint8_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var u2 Uint8
 		err = json.Unmarshal(data, &u2)
@@ -279,7 +279,7 @@ func TestUint8_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if u1 != u2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -300,7 +300,7 @@ func TestInt16_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		i2 := MakeInt16(100)
 		err = json.Unmarshal(data, &i2)
@@ -308,7 +308,7 @@ func TestInt16_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if i1 != i2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -318,7 +318,7 @@ func TestInt16_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var i2 Int16
 		err = json.Unmarshal(data, &i2)
@@ -326,7 +326,7 @@ func TestInt16_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if i1 != i2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -347,7 +347,7 @@ func TestUint16_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		u2 := MakeUint16(100)
 		err = json.Unmarshal(data, &u2)
@@ -355,7 +355,7 @@ func TestUint16_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if u1 != u2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -365,7 +365,7 @@ func TestUint16_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var u2 Uint16
 		err = json.Unmarshal(data, &u2)
@@ -373,7 +373,7 @@ func TestUint16_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if u1 != u2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -394,7 +394,7 @@ func TestInt32_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		i2 := MakeInt32(100)
 		err = json.Unmarshal(data, &i2)
@@ -402,7 +402,7 @@ func TestInt32_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if i1 != i2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -412,7 +412,7 @@ func TestInt32_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var i2 Int32
 		err = json.Unmarshal(data, &i2)
@@ -420,7 +420,7 @@ func TestInt32_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if i1 != i2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -441,7 +441,7 @@ func TestUint32_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		u2 := MakeUint32(100)
 		err = json.Unmarshal(data, &u2)
@@ -449,7 +449,7 @@ func TestUint32_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if u1 != u2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -459,7 +459,7 @@ func TestUint32_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var u2 Uint32
 		err = json.Unmarshal(data, &u2)
@@ -467,7 +467,7 @@ func TestUint32_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if u1 != u2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -488,7 +488,7 @@ func TestInt64_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		i2 := MakeInt64(100)
 		err = json.Unmarshal(data, &i2)
@@ -496,7 +496,7 @@ func TestInt64_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if i1 != i2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -506,7 +506,7 @@ func TestInt64_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var i2 Int64
 		err = json.Unmarshal(data, &i2)
@@ -514,7 +514,7 @@ func TestInt64_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if i1 != i2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -535,7 +535,7 @@ func TestUint64_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		u2 := MakeUint64(100)
 		err = json.Unmarshal(data, &u2)
@@ -543,7 +543,7 @@ func TestUint64_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if u1 != u2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -553,7 +553,7 @@ func TestUint64_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var u2 Uint64
 		err = json.Unmarshal(data, &u2)
@@ -561,7 +561,7 @@ func TestUint64_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if u1 != u2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -582,7 +582,7 @@ func TestUintptr_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		u2 := MakeUintptr(100)
 		err = json.Unmarshal(data, &u2)
@@ -590,7 +590,7 @@ func TestUintptr_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if u1 != u2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -600,7 +600,7 @@ func TestUintptr_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var u2 Uintptr
 		err = json.Unmarshal(data, &u2)
@@ -608,7 +608,7 @@ func TestUintptr_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if u1 != u2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -629,7 +629,7 @@ func TestFloat32_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		f2 := MakeFloat32(1.0)
 		err = json.Unmarshal(data, &f2)
@@ -637,7 +637,7 @@ func TestFloat32_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if f1 != f2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -647,7 +647,7 @@ func TestFloat32_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var f2 Float32
 		err = json.Unmarshal(data, &f2)
@@ -655,7 +655,7 @@ func TestFloat32_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if f1 != f2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -676,7 +676,7 @@ func TestFloat64_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		f2 := MakeFloat64(1.0)
 		err = json.Unmarshal(data, &f2)
@@ -684,7 +684,7 @@ func TestFloat64_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if f1 != f2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -694,7 +694,7 @@ func TestFloat64_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var f2 Float64
 		err = json.Unmarshal(data, &f2)
@@ -702,7 +702,7 @@ func TestFloat64_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if f1 != f2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -723,7 +723,7 @@ func TestRune_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		r2 := MakeRune('😊')
 		err = json.Unmarshal(data, &r2)
@@ -731,7 +731,7 @@ func TestRune_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if r1 != r2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -741,7 +741,7 @@ func TestRune_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var r2 Rune
 		err = json.Unmarshal(data, &r2)
@@ -749,7 +749,7 @@ func TestRune_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if r1 != r2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -770,7 +770,7 @@ func TestString_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		s2 := MakeString("foo")
 		err = json.Unmarshal(data, &s2)
@@ -778,7 +778,7 @@ func TestString_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if s1 != s2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -788,7 +788,7 @@ func TestString_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var s2 String
 		err = json.Unmarshal(data, &s2)
@@ -796,7 +796,7 @@ func TestString_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if s1 != s2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }
@@ -817,7 +817,7 @@ func TestDuration_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) != "null" {
-			t.Error("should be null json")
+			t.Error("json should be null")
 		}
 		d2 := MakeDuration(100 * time.Second)
 		err = json.Unmarshal(data, &d2)
@@ -825,7 +825,7 @@ func TestDuration_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if d1 != d2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 	{
@@ -835,7 +835,7 @@ func TestDuration_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if string(data) == "null" {
-			t.Error("should not be null json")
+			t.Error("json should not be null")
 		}
 		var d2 Duration
 		err = json.Unmarshal(data, &d2)
@@ -843,7 +843,7 @@ func TestDuration_MarshalAndUnmarshalJSON(t *testing.T) {
 			t.Fatal(err)
 		}
 		if d1 != d2 {
-			t.Error("should be equal values")
+			t.Error("values should be equal")
 		}
 	}
 }

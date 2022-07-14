@@ -9,7 +9,7 @@ import (
 
 // MarshalYAML implements yaml.Marshaler.
 func (b Bool) MarshalYAML() (interface{}, error) {
-	if !b.hasValue {
+	if !b.isSet {
 		return nil, nil
 	}
 	return b.value, nil
@@ -27,7 +27,7 @@ func (b *Bool) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (b Byte) MarshalYAML() (interface{}, error) {
-	if !b.hasValue {
+	if !b.isSet {
 		return nil, nil
 	}
 	return b.value, nil
@@ -45,7 +45,7 @@ func (b *Byte) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (i Int) MarshalYAML() (interface{}, error) {
-	if !i.hasValue {
+	if !i.isSet {
 		return nil, nil
 	}
 	return i.value, nil
@@ -63,7 +63,7 @@ func (i *Int) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (u Uint) MarshalYAML() (interface{}, error) {
-	if !u.hasValue {
+	if !u.isSet {
 		return nil, nil
 	}
 	return u.value, nil
@@ -81,7 +81,7 @@ func (u *Uint) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (i Int8) MarshalYAML() (interface{}, error) {
-	if !i.hasValue {
+	if !i.isSet {
 		return nil, nil
 	}
 	return i.value, nil
@@ -99,7 +99,7 @@ func (i *Int8) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (u Uint8) MarshalYAML() (interface{}, error) {
-	if !u.hasValue {
+	if !u.isSet {
 		return nil, nil
 	}
 	return u.value, nil
@@ -117,7 +117,7 @@ func (u *Uint8) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (i Int16) MarshalYAML() (interface{}, error) {
-	if !i.hasValue {
+	if !i.isSet {
 		return nil, nil
 	}
 	return i.value, nil
@@ -135,7 +135,7 @@ func (i *Int16) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (u Uint16) MarshalYAML() (interface{}, error) {
-	if !u.hasValue {
+	if !u.isSet {
 		return nil, nil
 	}
 	return u.value, nil
@@ -153,7 +153,7 @@ func (u *Uint16) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (i Int32) MarshalYAML() (interface{}, error) {
-	if !i.hasValue {
+	if !i.isSet {
 		return nil, nil
 	}
 	return i.value, nil
@@ -171,7 +171,7 @@ func (i *Int32) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (u Uint32) MarshalYAML() (interface{}, error) {
-	if !u.hasValue {
+	if !u.isSet {
 		return nil, nil
 	}
 	return u.value, nil
@@ -189,7 +189,7 @@ func (u *Uint32) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (i Int64) MarshalYAML() (interface{}, error) {
-	if !i.hasValue {
+	if !i.isSet {
 		return nil, nil
 	}
 	return i.value, nil
@@ -207,7 +207,7 @@ func (i *Int64) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (u Uint64) MarshalYAML() (interface{}, error) {
-	if !u.hasValue {
+	if !u.isSet {
 		return nil, nil
 	}
 	return u.value, nil
@@ -225,7 +225,7 @@ func (u *Uint64) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (u Uintptr) MarshalYAML() (interface{}, error) {
-	if !u.hasValue {
+	if !u.isSet {
 		return nil, nil
 	}
 	return u.value, nil
@@ -243,7 +243,7 @@ func (u *Uintptr) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (f Float32) MarshalYAML() (interface{}, error) {
-	if !f.hasValue {
+	if !f.isSet {
 		return nil, nil
 	}
 	return f.value, nil
@@ -261,7 +261,7 @@ func (f *Float32) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (f Float64) MarshalYAML() (interface{}, error) {
-	if !f.hasValue {
+	if !f.isSet {
 		return nil, nil
 	}
 	return f.value, nil
@@ -279,7 +279,7 @@ func (f *Float64) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (r Rune) MarshalYAML() (interface{}, error) {
-	if !r.hasValue {
+	if !r.isSet {
 		return nil, nil
 	}
 	return r.value, nil
@@ -297,7 +297,7 @@ func (r *Rune) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (s String) MarshalYAML() (interface{}, error) {
-	if !s.hasValue {
+	if !s.isSet {
 		return nil, nil
 	}
 	return s.value, nil
@@ -315,7 +315,7 @@ func (s *String) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalYAML implements yaml.Marshaler.
 func (d Duration) MarshalYAML() (interface{}, error) {
-	if !d.hasValue {
+	if !d.isSet {
 		return nil, nil
 	}
 	valueStr := d.value.String()
